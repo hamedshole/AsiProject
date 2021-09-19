@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:model="clr-namespace:Asi.Model;assembly=Asi.Model" xmlns:offline="clr-namespace:AsiMobile.ViewModels.Offline"
+             x:Class="AsiMobile.Views.Offline.LinksView"
+             x:DataType="offline:LinkViewModel">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout FlowDirection="RightToLeft" Orientation="Horizontal" HorizontalOptions="Center">
+                <Entry WidthRequest="150" Placeholder="نام" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="{Binding Fullname}"/>
+                <Entry WidthRequest="200" Keyboard="Telephone" Placeholder="تلفن" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="{Binding PhoneNumber}"/>
+            </StackLayout>
+            <Button Text="ایجاد" Command="{Binding AddLink}"/>
+            <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Links}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal" x:DataType="model:LinkModel">
+                            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Fullname}"/>
+                            <Label HorizontalOptions="Center"  Text="{Binding PhoneNumber}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

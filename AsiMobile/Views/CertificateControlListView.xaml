@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:model1="clr-namespace:Asi.Model;assembly=Asi.Model" xmlns:viewmodel="clr-namespace:AsiMobile.ViewModel"
+             x:DataType="viewmodel:RequetControlListViewModel"
+             x:Name="certificatecontrols"
+             x:Class="AsiMobile.View.CertificateControlListView"
+             Title="چک لیست های درخواستی">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding SendRequest}"
+            Text="ارسال"
+                 Order="Primary"
+                 Priority="0"/>
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Frame 
+                BackgroundColor="CadetBlue"
+                CornerRadius="20"
+                HorizontalOptions="Center">
+                <Label Text="لیست فرم های موجود"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Frame>
+            <CollectionView FlowDirection="RightToLeft" Grid.Row="2" Margin="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                        SelectionMode="None" ItemsSource="{Binding ItemFormTemplates}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model1:FormDataModel">
+                            <Frame CornerRadius="20" BackgroundColor="FloralWhite">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label HorizontalTextAlignment="End" VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Id}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                                    <Label VerticalTextAlignment="Center" Grid.Column="1"
+                                Text="{Binding CertificateType}" 
+                                       HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" />
+                                    <Label VerticalTextAlignment="Center" Grid.Column="2"
+                                Text="{Binding StandardRefference}" 
+                                       HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" />
+                                    <Button Grid.Column="3" Text="افزودن"
+                                        HorizontalOptions="End"
+                                            Command="{Binding Path=BindingContext. NewForm,Source={x:Reference certificatecontrols}}"
+                                        CommandParameter="{Binding .}"
+                                        />
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Frame 
+                BackgroundColor="CadetBlue"
+                CornerRadius="20"
+                HorizontalOptions="Center">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="چک لیست های افزوده شده"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Label Text="{Binding Contols.Count}"/>
+                        <Label Text="تعداد"/>
+                       
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <CollectionView FlowDirection="RightToLeft" Grid.Row="2" Margin="25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                        SelectionMode="None" ItemsSource="{Binding Contols}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model1:FormDataModel">
+                            <Frame CornerRadius="20" BackgroundColor="FloralWhite">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label HorizontalTextAlignment="End" VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Id}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                                    <Label VerticalTextAlignment="Center" Grid.Column="1"
+                                Text="{Binding CertificateType}" 
+                                       HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" />
+                                    <Label VerticalTextAlignment="Center" Grid.Column="2"
+                                Text="{Binding StandardRefference}" 
+                                       HorizontalTextAlignment="Center"
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="20" />
+                                    <Button Grid.Column="3" Text="ویرایش"
+                                        HorizontalOptions="End"
+                                            Command="{Binding Path=BindingContext. NewForm,Source={x:Reference certificatecontrols}}"
+                                        CommandParameter="{Binding .}"
+                                        />
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+       
+    </ContentPage.Content>
+</ContentPage>

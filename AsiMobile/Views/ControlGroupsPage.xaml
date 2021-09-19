@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model1="clr-namespace:Asi.Model;assembly=Asi.Model"
+             xmlns:util="clr-namespace:AsiMobile.Util" xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="AsiMobile.View.ControlGroupsPage"
+             xmlns:segmentCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+             x:Name="controlgroupspage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding SubmitForm}"
+            Text="ثبت"
+                 Order="Primary"
+                 Priority="0"/>
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <util:CountToBoolenConverter x:Key="countToBoolean" />
+            <util:PlusOneConverter x:Key="plusone" />
+            <util:CollectionVisibleConverter x:Key="collectionconverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <CarouselView  x:Name="GroupsListView"
+                ItemsSource="{Binding Items}"
+                      IsSwipeEnabled="False"
+                >
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="model1:FormDataGroupModel">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label Text="{Binding Path=Position, Source={x:Reference GroupsListView},Converter={StaticResource plusone}  }"/>
+                            <Label Text="/"/>
+                            <Label Text="{Binding BindingContext.Items.Count,Source={x:Reference controlgroupspage}}"/>
+                        </StackLayout>
+                        <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Title}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+
+                        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+
+                            <Button  Text="قبلی" Command="{Binding BindingContext.Prev,Source={x:Reference controlgroupspage}}" CommandParameter="{x:Reference rowslist}"/>
+                            <Button   Text="بعدی" Command="{Binding BindingContext.Next,Source={x:Reference controlgroupspage}}" CommandParameter="{x:Reference rowslist}"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label Text="{Binding Path=Position, Source={x:Reference rowslist},Converter={StaticResource plusone}  }"/>
+                            <Label Text="/"/>
+                            <Label Text="{Binding BindingContext.Questions.Count,Source={x:Reference rowslist}}"/>
+                        </StackLayout>
+                        <CarouselView  x:Name="rowslist"
+                                       
+                ItemsSource="{Binding Questions}"
+                      IsSwipeEnabled="False"
+                >
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout IsVisible="{Binding BindingContext, Source={x:Reference rowslist},Converter={StaticResource collectionconverter}, ConverterParameter=questiononeheader }" Padding="10" x:DataType="model1:FormDataRowModel">
+                                            <StackLayout Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstQuestion}" FontSize="16" />
+                                                <Entry  Text="{Binding  FirstAnswer}" ReturnCommand="{Binding BindingContext.Next,Source={x:Reference controlgroupspage}}" ReturnType="Done" ReturnCommandParameter="{x:Reference rowslist}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout IsVisible="{Binding BindingContext, Source={x:Reference rowslist},Converter={StaticResource collectionconverter}, ConverterParameter=checklistonequestiononeheader }" Padding="10" x:DataType="model1:FormDataRowModel">
+                                            <StackLayout BackgroundColor="Red" Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" Text="سوال یک "/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding  Path=BindingContext.QuestionHeaders[0], Source={x:Reference rowslist}}" FontSize="16" />
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstQuestion}" FontSize="16" />
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[1], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Picker SelectedItem="{Binding FirstAnswer}" SelectedIndexChanged="Picker_SelectedIndexChanged">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >NotOk</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                                <Picker  SelectedItem="{Binding SelectedMissMatchWord}" IsVisible="false" SelectedIndexChanged="Picker_SelectedIndexChanged_1"/>
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                        <StackLayout IsVisible="{Binding BindingContext, Source={x:Reference rowslist},Converter={StaticResource collectionconverter}, ConverterParameter=checklistthreequestiononeheader }" Padding="10" x:DataType="model1:FormDataRowModel">
+                                            <StackLayout BackgroundColor="Red" Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" Text="سوال یک "/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding  Path=BindingContext.QuestionHeaders[0], Source={x:Reference rowslist}}" FontSize="16" />
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstQuestion}" FontSize="16" />
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[1], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding SecondQuestion}" FontSize="16" />
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[2], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding ThirdQuestion}" FontSize="16" />
+
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Picker SelectedItem="{Binding FirstAnswer}" SelectedIndexChanged="Picker_SelectedIndexChanged">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >NotOk</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                                <Picker  SelectedItem="{Binding SelectedMissMatchWord}" IsVisible="false" SelectedIndexChanged="Picker_SelectedIndexChanged_1"/>
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                        <StackLayout IsVisible="{Binding BindingContext, Source={x:Reference rowslist},Converter={StaticResource collectionconverter}, ConverterParameter=checklisttwoquestiononeheader }" Padding="10" x:DataType="model1:FormDataRowModel">
+                                            <StackLayout BackgroundColor="Red" Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" Text="سوال یک "/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding  Path=BindingContext.QuestionHeaders[0], Source={x:Reference rowslist}}" FontSize="16" />
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstQuestion}" FontSize="16" />
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[1], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding SecondQuestion}" FontSize="16" />
+
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical">
+                                                <Picker SelectedItem="{Binding FirstAnswer}" SelectedIndexChanged="Picker_SelectedIndexChanged">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >NotOk</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                                <Picker  SelectedItem="{Binding SelectedMissMatchWord}" IsVisible="false" SelectedIndexChanged="Picker_SelectedIndexChanged_1"/>
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                        <!--<StackLayout IsVisible="false" Padding="10" x:DataType="model1:FormDataRowModel">
+
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[0], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstQuestion}" FontSize="16" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.QuestionHeaders.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=2 }">
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[1], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding SecondQuestion}" FontSize="16" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.QuestionHeaders.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=3 }">
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[2], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding ThirdQuestion}" FontSize="16" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.QuestionHeaders.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=4 }">
+                                                <Label Text="{Binding  Path=BindingContext.QuestionHeaders[3], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding ForthQuestion}" FontSize="16" />
+                                                <Entry HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding FirstAnswer}"/>
+                                            </StackLayout>
+
+
+                                            <StackLayout Orientation="Vertical">
+                                                <StackLayout.Triggers>
+                                                    <DataTrigger TargetType="StackLayout" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.HasNote }" Value="True">
+                                                        <Setter Property="IsVisible" Value="False"/>
+                                                    </DataTrigger>
+                                                </StackLayout.Triggers>
+                                                <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=1 }">
+                                                    <Label Text="{Binding  Path=BindingContext.AnswerColumns[0], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                    <Entry  Text="{Binding  FirstAnswer}">
+                                                        <Entry.Triggers>
+                                                            <DataTrigger TargetType="Entry" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.IsCheckBox }" Value="True">
+                                                                <Setter Property="IsVisible" Value="False"/>
+                                                            </DataTrigger>
+                                                        </Entry.Triggers>
+                                                    </Entry>
+                                                    <Picker SelectedItem="{Binding FirstAnswer}" IsVisible="{Binding  Path=BindingContext.IsCheckBox, Source={x:Reference rowslist}}">
+                                                        <Picker.Items>
+                                                            <x:String >Ok</x:String>
+                                                            <x:String >Not Ok</x:String>
+                                                            <x:String >Null</x:String>
+                                                        </Picker.Items>
+                                                    </Picker>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=2 }">
+                                                <Label Text="{Binding  Path=BindingContext.AnswerColumns[1], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Entry  Text="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=2 }">
+                                                    <Entry.Triggers>
+                                                        <DataTrigger TargetType="Entry" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.IsCheckBox }" Value="True">
+                                                            <Setter Property="IsVisible" Value="False"/>
+                                                        </DataTrigger>
+                                                    </Entry.Triggers>
+                                                </Entry>
+                                                <Picker SelectedItem="{Binding SecondAnswer}" IsVisible="{Binding  Path=BindingContext.IsCheckBox, Source={x:Reference rowslist}}">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >Not Ok</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=3 }">
+                                                <Label Text="{Binding  Path=BindingContext.AnswerColumns[2], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Entry  Text="{Binding  ThirdAnswer}">
+                                                    <Entry.Triggers>
+                                                        <DataTrigger TargetType="Entry" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.IsCheckBox }" Value="True">
+                                                            <Setter Property="IsVisible" Value="False"/>
+                                                        </DataTrigger>
+                                                    </Entry.Triggers>
+                                                </Entry>
+                                                <Picker SelectedItem="{Binding ThirdAnswer}" IsVisible="{Binding  Path=BindingContext.IsCheckBox, Source={x:Reference rowslist}}">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >Not Ok</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=1 }">
+                                                <Label Text="{Binding  Path=BindingContext.AnswerColumns[3], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Entry  Text="{Binding  ForthAnswer}">
+                                                    <Entry.Triggers>
+                                                        <DataTrigger TargetType="Entry" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.IsCheckBox }" Value="True">
+                                                            <Setter Property="IsVisible" Value="False"/>
+                                                        </DataTrigger>
+                                                    </Entry.Triggers>
+                                                </Entry>
+                                                <Picker SelectedItem="{Binding ForthAnswer}" IsVisible="{Binding  Path=BindingContext.IsCheckBox, Source={x:Reference rowslist}}">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >Not Ok</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" IsVisible="{Binding BindingContext.AnswerColumns.Count, Source={x:Reference rowslist},Converter={StaticResource countToBoolean}, ConverterParameter=1 }">
+                                                <Label Text="{Binding  Path=BindingContext.AnswerColumns[4], Source={x:Reference rowslist}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                <Entry  Text="{Binding  FifthAnswer}">
+                                                    <Entry.Triggers>
+                                                        <DataTrigger TargetType="Entry" Binding="{ Binding Source={x:Reference Name=rowslist}, Path=BindingContext.IsCheckBox }" Value="True">
+                                                            <Setter Property="IsVisible" Value="False"/>
+                                                        </DataTrigger>
+                                                    </Entry.Triggers>
+                                                </Entry>
+                                                <Picker SelectedItem="{Binding FifthAnswer}" IsVisible="{Binding  Path=BindingContext.IsCheckBox, Source={x:Reference rowslist}}">
+                                                    <Picker.Items>
+                                                        <x:String >Ok</x:String>
+                                                        <x:String >Not Ok</x:String>
+                                                        <x:String >Null</x:String>
+                                                    </Picker.Items>
+                                                </Picker>
+                                            </StackLayout>
+                                        </StackLayout>-->
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </ContentPage.Content>
+</ContentPage>

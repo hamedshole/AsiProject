@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AsiMobile.ViewModel"
+             xmlns:forms="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+             x:Class="AsiMobile.View.ControlFormPage"
+             x:DataType="viewmodel:ControlFormViewModel"
+             Title="صفحه اطلاعات فرم"
+             FlowDirection="RightToLeft">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding FormSend}"
+            Text="ارسال"
+                 Order="Primary"
+                 Priority="0"/>
+    </ContentPage.ToolbarItems>
+             
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout FlowDirection="RightToLeft" >
+                <Frame HeightRequest="40" Margin="10" CornerRadius="20" BorderColor="Black" BackgroundColor="PapayaWhip">
+                    <Picker   SelectedItem="{Binding ProvinceTitle}"  Title="استان" VerticalOptions="Center" ItemsSource="{Binding ProvinceComboItems}" />
+                </Frame>
+                <Frame HeightRequest="40" Margin="10" CornerRadius="20" BorderColor="Black" BackgroundColor="PapayaWhip">
+                    <Editor x:Name="companynametext" Placeholder="نام شرکت" VerticalOptions="Center" Text="{Binding CompanyName}"/>
+                </Frame>
+                <Frame HeightRequest="40" Margin="10" CornerRadius="20" BorderColor="Black" BackgroundColor="PapayaWhip">
+                    <Editor Keyboard="Telephone" x:Name="companyphonetext" Placeholder="تلفن شرکت" VerticalOptions="Center" Text="{Binding CompanyPhone}"/>
+                </Frame>
+
+                <Frame  HeightRequest="100" Margin="10" CornerRadius="20" BorderColor="Black" BackgroundColor="PapayaWhip">
+                    <Editor x:Name="companyaddresstext" HeightRequest="100" Placeholder="آدرس شرکت" VerticalOptions="Center" Text="{Binding CompanyAddress}"/>
+                </Frame>
+                <StackLayout  Orientation="Vertical">
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Button Text="Pick a Photo"    
+                    x:Name="انتخاب"    
+                    BackgroundColor="Blue"    
+                    Clicked="PickAPhotoButton_OnClicked"/>
+                    </StackLayout>
+                </StackLayout>
+                <Image HorizontalOptions="Center" HeightRequest="100" WidthRequest="100"   Aspect="AspectFill"  x:Name="image"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

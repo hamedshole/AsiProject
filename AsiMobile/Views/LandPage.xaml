@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="AsiMobile.Views.LandPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:local="clr-namespace:AsiMobile.Views" xmlns:offlineviews="clr-namespace:AsiMobile.Views.Offline" xmlns:onlineviews="clr-namespace:AsiMobile.Views.Online"
+    android:TabbedPage.BarItemColor="{DynamicResource Steel}"
+    android:TabbedPage.BarSelectedItemColor="{DynamicResource PrimaryColor}"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    BackgroundColor="{DynamicResource Gray-Bg}"
+    BarBackgroundColor="{DynamicResource Gray-Bg}"
+    NavigationPage.HasNavigationBar="False">
+    <offlineviews:Dashboard Title="داشبورد">
+        <offlineviews:Dashboard.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Home}"
+                Size="16" />
+        </offlineviews:Dashboard.IconImageSource>
+    </offlineviews:Dashboard>
+    <onlineviews:DepartmentsView Title="دپارتمان ها">
+        <onlineviews:DepartmentsView.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Category}"
+                Size="16" />
+        </onlineviews:DepartmentsView.IconImageSource>
+    </onlineviews:DepartmentsView>
+    <local:SettingsPage Title="Settings">
+        <local:SettingsPage.IconImageSource>
+            <FontImageSource
+                FontFamily="FontIcons"
+                Glyph="{StaticResource Settings}"
+                Size="16" />
+        </local:SettingsPage.IconImageSource>
+    </local:SettingsPage>
+</TabbedPage>
