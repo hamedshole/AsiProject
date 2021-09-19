@@ -1,11 +1,8 @@
 ﻿using Asi.Client.V2.Interfaces;
 using Asi.Model;
-using Client.Business.Util;
 using SignaturePad.Forms;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -40,8 +37,8 @@ namespace AsiMobile.ViewModel
         public ControlFormViewModel(List<RequestCertificateControlModel> formDatas)
         {
             App.CertificateTypeId = formDatas[0].ControlForm.CertificateTypeId;
-           // this.departmentId = departmentid;
-            _unit = App.ServiceProvider.Get<IV2BusinessUnit>();
+            // this.departmentId = departmentid;
+            _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
             Certificate = new RequestCertificateModel();
             Certificate.FormDatas = formDatas;
           //  FormData.FormData = controlFormData;
@@ -67,9 +64,9 @@ namespace AsiMobile.ViewModel
         {
             
             this.Certificate = controlFormSend;
-           // this.itemId = itemId;
+            // this.itemId = itemId;
             // this.departmentId = departmentid;
-           _unit = App.ServiceProvider.Get<IV2BusinessUnit>();
+            _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
            //FormData = new ControlFormSendModel();
          //   FormData.ServiceTypeId = controlFormSend;
          //   FormData.FormData = controlFormData;
@@ -105,7 +102,7 @@ namespace AsiMobile.ViewModel
             this.Certificate.DepartmentId = App.DepartmentId;
             this.Certificate.ItemId = App.ItemId;
             this.Certificate.ProvinenceId = this.ProvinceModels.Where(x => x.Title == this.ProvinceTitle).Select(x => x.Id).FirstOrDefault();
-            this.Certificate.Company = new Asi.Shared.Model.ValueObjects.Company { Address = this.CompanyAddress, Fullname = this.CompanyName, PhoneNumber = this.CompanyPhone };
+            this.Certificate.Company = new Asi.Model.ValueObjects.Company { Address = this.CompanyAddress, Fullname = this.CompanyName, PhoneNumber = this.CompanyPhone };
             this.Certificate.Image = this.Image;
             //_formRepository.SendForm(this.FormData);
             _unit.Certificates.SendRequest(this.Certificate);

@@ -1,7 +1,5 @@
 ﻿using Asi.Model;
-using Asi.Shared.Model;
 using AsiMobile.ViewModel;
-using AsiMobile.ViewModels;
 using Syncfusion.XForms.Buttons;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -27,7 +25,6 @@ namespace AsiMobile.View
         private void Picker_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             Picker firstanswerpicker = (sender as Picker);
-            CarouselView carousel = (((sender as Picker).Parent.Parent as StackLayout).Parent as StackLayout).Parent as CarouselView;
             Picker missmatchpicker = ((sender as Picker).Parent as StackLayout).Children[1] as Picker;
             StackLayout warner = (((sender as Picker).Parent as StackLayout).Parent as StackLayout).Children[0] as StackLayout;
             FormDataRowModel formDataRow =missmatchpicker.BindingContext as FormDataRowModel;
@@ -38,7 +35,7 @@ namespace AsiMobile.View
                 missmatchpicker.IsVisible = false;
             }
                 
-            if (carousel!=null)
+            if ((((sender as Picker).Parent.Parent as StackLayout).Parent as StackLayout).Parent is CarouselView carousel)
             {
                     string checkboxtext = (sender as Picker).SelectedItem.ToString();
                    // int c = carousel.Position;
@@ -81,8 +78,7 @@ namespace AsiMobile.View
 
         private void Picker_SelectedIndexChanged_1(object sender, System.EventArgs e)
         {
-            CarouselView carousel = (((sender as Picker).Parent.Parent as StackLayout).Parent as StackLayout).Parent as CarouselView;
-            if(carousel!=null)
+            if ((((sender as Picker).Parent.Parent as StackLayout).Parent as StackLayout).Parent is CarouselView carousel)
                 this.formGroupsViewModel.NexxtRowCommand(carousel);
         }
 
@@ -132,7 +128,6 @@ namespace AsiMobile.View
         }
         private void PageNavigation(object sender,string value)
         {
-            CarouselView carousel = (((sender as SfSegmentedControl).Parent.Parent as StackLayout).Parent as StackLayout).Parent as CarouselView;
             Picker missmatchpicker = ((sender as SfSegmentedControl).Parent as StackLayout).Children[1] as Picker;
             StackLayout warner = (((sender as SfSegmentedControl).Parent as StackLayout).Parent as StackLayout).Children[0] as StackLayout;
             FormDataRowModel formDataRow = missmatchpicker.BindingContext as FormDataRowModel;
@@ -143,7 +138,7 @@ namespace AsiMobile.View
             //    missmatchpicker.IsVisible = false;
             //}
 
-            if (carousel != null)
+            if ((((sender as SfSegmentedControl).Parent.Parent as StackLayout).Parent as StackLayout).Parent is CarouselView carousel)
             {
                 // int c = carousel.Position;
                 //StackLayout warner = (((sender as Picker).Parent as StackLayout).Parent as StackLayout).Children[0] as StackLayout;

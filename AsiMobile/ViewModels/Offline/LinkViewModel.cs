@@ -1,27 +1,25 @@
-﻿using Asi.Mobile.Application.Interfaces;
+﻿using Asi.Application.Interface;
 using Asi.Model;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AsiMobile.ViewModels.Offline
 {
-  public  class LinkViewModel
+    public  class LinkViewModel
     {
         public string Fullname { get; set; }
         public string PhoneNumber { get; set; }
         public ObservableCollection<LinkModel> Links{ get; set; }
         public Command AddLink{ get; set; }
-        IApplicationUnit _unit;
+        IApplicationBusinessUnit _unit;
         public LinkViewModel()
         {
-            _unit = App.ServiceProvider.GetService(typeof(IApplicationUnit)) as IApplicationUnit;
+            _unit = App.ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
             Links = new ObservableCollection<LinkModel>();
-            List<LinkModel> linkModels =Task.Run(async()=>await _unit.Links.GetAll(0)).Result;
-            linkModels.ForEach(x => Links.Add(x));
+           // List<LinkModel> linkModels =Task.Run(async()=>await _unit.Links.GetAll(0)).Result;
+          //  linkModels.ForEach(x => Links.Add(x));
             AddLink = new Command(AddLinkMethod);
         }
 
@@ -32,10 +30,10 @@ namespace AsiMobile.ViewModels.Offline
                 Fullname = this.Fullname,
                 PhoneNumber = this.PhoneNumber
             };
-           await _unit.Links.Create(link);
-            List<LinkModel> linkModels = Task.Run(async () => await _unit.Links.GetAll(0)).Result;
-            linkModels.Clear();
-            linkModels.ForEach(x => Links.Add(x));
+          // await _unit.Links.Create(link);
+          //  List<LinkModel> linkModels = Task.Run(async () => await _unit.Links.GetAll(0)).Result;
+         //   linkModels.Clear();
+         //   linkModels.ForEach(x => Links.Add(x));
 
         }
     }

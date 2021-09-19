@@ -49,9 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Asi.Client\Asi.Client.csproj" />
-    <ProjectReference Include="..\..\Asi.Mobile.Application\Asi.Mobile.Application.csproj" />
-    <ProjectReference Include="..\..\Asi.Model\Asi.Model.csproj" />
+    <ProjectReference Include="..\Asi.Application\Asi.Application.csproj" />
+    <ProjectReference Include="..\Asi.Client\Asi.Client.csproj" />
+    <ProjectReference Include="..\Asi.Model\Asi.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

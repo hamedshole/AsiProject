@@ -3,8 +3,6 @@ using Asi.Model;
 using AsiMobile.Validators;
 using AsiMobile.Validators.Rules;
 using AsiMobile.Views;
-using Client.Business.Util;
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -30,7 +28,7 @@ namespace AsiMobile.ViewModels
         /// </summary>
         public LoginPageViewModel()
         {
-            _unit = App.ServiceProvider.Get<IV2BusinessUnit>();
+            _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
             this.InitializeProperties();
             this.AddValidationRules();
             this.LoginCommand = new Command(this.LoginClicked);

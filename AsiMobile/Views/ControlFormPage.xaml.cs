@@ -1,5 +1,4 @@
 ﻿using Asi.Model;
-using Asi.Shared.Model;
 using AsiMobile.ViewModel;
 using Plugin.Media;
 using Plugin.Media.Abstractions;

@@ -1,20 +1,17 @@
-﻿using Asi.Client.V2.Interfaces;
-using Asi.Mobile.Application.Interfaces;
+﻿using Asi.Application.Interface;
+using Asi.Client.V2.Interfaces;
 using Asi.Model;
 using AsiMobile.View;
-using AsiMobile.Views.Online;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using Xamarin.Forms;
 
 namespace AsiMobile.ViewModels.Online
 {
-   public class ItemsViewModel
+    public class ItemsViewModel
     {
         private IV2BusinessUnit _unit;
-        private IApplicationUnit _applicationUnit;
+        private IApplicationBusinessUnit _applicationUnit;
         public Command<ItemModel> SaveItem { get;private set; }
         public Command<ItemModel> SendCertificate { get; private set; }
         public ObservableCollection<ItemModel> Items{ get; set; }
@@ -22,7 +19,7 @@ namespace AsiMobile.ViewModels.Online
         {
             App.ServiceTypeId = serviceTypeId;
             Items = new ObservableCollection<ItemModel>();
-            _applicationUnit = App.ServiceProvider.GetService(typeof(IApplicationUnit)) as IApplicationUnit;
+            _applicationUnit = App.ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
             SaveItem = new Command<ItemModel>(SaveItemMethod);
             SendCertificate = new Command<ItemModel>(SendCertificateMethod);
             _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;

@@ -1,9 +1,7 @@
+using Asi.Application.Interface;
 using Asi.Client;
-using Asi.Mobile.Application.Interfaces;
-using Asi.Mobile.Business;
 using Asi.Model;
 using AsiMobile.Views;
-using AsiMobile.Views.Online;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
@@ -33,10 +31,10 @@ namespace AsiMobile
             var dbPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             ServiceCollection services = new ServiceCollection();
             services.RegisterV2ApiClient();
-            services.RegisterSqliteBusiness(dbPath);
+          //  services.RegisterSqliteBusiness(dbPath);
              ServiceProvider = services.BuildServiceProvider();
             InitializeComponent();
-            IApplicationUnit applicationUnit = ServiceProvider.GetService(typeof(IApplicationUnit)) as IApplicationUnit;
+            IApplicationBusinessUnit applicationUnit = ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
             int d = Task.Run(async () => await applicationUnit.Departments.GetAll()).Result.Count;
             MainPage = new NavigationPage(new LoginPage());
         }

@@ -1,4 +1,4 @@
-﻿using Asi.Mobile.Application.Interfaces;
+﻿using Asi.Application.Interface;
 using Asi.Model;
 using AsiMobile.ViewModel;
 using Plugin.Media;
@@ -7,19 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AsiMobile.ViewModels
 {
-   public class ControlDetailViewModel
+    public class ControlDetailViewModel
     {
         public Command SendCertificateControl { get; private set; }
         private FormGroupsViewModel FormGroupsViewModel;
         public ObservableCollection<LinkModel> Links{ get; set; }
         private List<string> images = new List<string>();
-        private IApplicationUnit _unit;
+        private IApplicationBusinessUnit _unit;
         public string LinkName { get; set; }
         public string LinkPhoneNumber { get; set; }
         public Command AddImage { get; private set; }
@@ -31,10 +29,10 @@ namespace AsiMobile.ViewModels
             this.SignaturePadView = signaturePad;
             SendCertificateControl = new Command(SendCertificateControlMethod);
             this.FormGroupsViewModel = formGroupsView;
-            _unit = App.ServiceProvider.GetService(typeof(IApplicationUnit)) as IApplicationUnit;
+            _unit = App.ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
             Links = new ObservableCollection<LinkModel>();
-            List<LinkModel> linkModels = Task.Run(async () => await _unit.Links.GetAll(0)).Result;
-            linkModels.ForEach(x => Links.Add(x));
+           // List<LinkModel> linkModels = Task.Run(async () => await _unit.Links.GetAll(0)).Result;
+            //linkModels.ForEach(x => Links.Add(x));
             AddImage = new Command(AddImageMethod);
             this.gallery = gallery;
         }
@@ -46,7 +44,7 @@ namespace AsiMobile.ViewModels
             requestCertificateControlModel.Time = DateTime.Now;
             requestCertificateControlModel.ControlTime = 1;
             requestCertificateControlModel.ItemImage = images;
-            requestCertificateControlModel.Link = new Asi.Shared.Model.ValueObjects.ControlLink { Fullname = LinkName, PhoneNumber = LinkPhoneNumber };
+            requestCertificateControlModel.Link = new Asi.Model.ValueObjects.ControlLink { Fullname = LinkName, PhoneNumber = LinkPhoneNumber };
        var s =await SignaturePadView.GetImageStreamAsync(SignaturePad.Forms.SignatureImageFormat.Png,true,true);
             using (var memoryStream = new MemoryStream())
             {

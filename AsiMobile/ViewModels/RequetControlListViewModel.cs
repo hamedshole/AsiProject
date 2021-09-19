@@ -1,8 +1,6 @@
 ﻿using Asi.Client.V2.Interfaces;
-using Asi.Domain.ValueObjects;
 using Asi.Model;
 using AsiMobile.View;
-using Client.Business.Util;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Essentials;
@@ -24,7 +22,7 @@ namespace AsiMobile.ViewModel
             NewForm = new Command<FormDataModel>(NewFormMethod);
             ItemFormTemplates = new ObservableCollection<FormDataModel>();
             Contols = new ObservableCollection<RequestCertificateControlModel>();
-            _unit = App.ServiceProvider.Get<IV2BusinessUnit>();
+            _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
            List<FormDataModel> formtemplates = _unit.Form.GetMobileForm(itemId);
             formtemplates.ForEach(x => this.ItemFormTemplates.Add(x));
         }
@@ -42,7 +40,7 @@ namespace AsiMobile.ViewModel
         public async void SubmitForm(RequestCertificateControlModel certificateControlModel)
         {
             Xamarin.Essentials.Location location = await Geolocation.GetLastKnownLocationAsync();
-            certificateControlModel.Location = new Asi.Shared.Model.ValueObjects.ControlLocation(location.Longitude, location.Latitude);
+            certificateControlModel.Location = new Asi.Model.ValueObjects.ControlLocation(location.Longitude, location.Latitude);
           
             this.Contols.Add(certificateControlModel);
         }
