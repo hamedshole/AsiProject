@@ -25,7 +25,7 @@ namespace Asi.Business.Repositories
             return certificateDtos;
         }
 
-        async Task<Certificate> ICertificate.GetNextControl(int certificateId)
+        async Task<Certificate> ICertificate.GetNextControlById(int certificateId)
         {
             Certificate certificate = await _dbConttext.Certificates.Where(x => x.Id == certificateId).
                  Include(x => x.Province).
@@ -204,7 +204,9 @@ namespace Asi.Business.Repositories
                         for (int j = 0; j < formDataGroups[i].Answers.Count; j++)
                         {
                             FormDataRow formDataRow = formDataGroups[i].Answers.ElementAt(j);
+                            _dbConttext.Entry(formDataRow).State = EntityState.Modified;
                             _dbConttext.FormDataRows.Update(formDataRow);
+                           
                         }
                     }
                     _dbConttext.Entry(certificate).State = EntityState.Detached;
@@ -313,6 +315,28 @@ namespace Asi.Business.Repositories
         public async Task<int> UnCompleteCertificateCount()
         {
             return Task.Run(async () => await _dbConttext.Certificates.Where(x => x.NeedToBeCompleted == true).ToListAsync()).Result.Count;
+        }
+
+        public async Task<Certificate> GetNextControlByCompanyName(string companyName)
+        {
+            Certificate certificate = await _dbConttext.Certificates.Where(x => x.Company.Fullname.Contains(companyName)).
+                Include(x => x.Province).
+                Include(x => x.RefferenceForm).
+                ThenInclude(x => x.Groups.Where(y => y.Template.IsCheckbox)).
+                ThenInclude(x => x.Template).
+                ThenInclude(x => x.QuestionHeaders).
+                Include(x => x.RefferenceForm).
+                ThenInclude(x => x.Groups.Where(y => y.Template.IsCheckbox)).
+                ThenInclude(x => x.Template).
+                ThenInclude(x => x.AnswerColumns).
+                 Include(x => x.RefferenceForm).
+                ThenInclude(x => x.Groups.Where(y => y.Template.IsCheckbox)).
+                Include(x => x.RefferenceForm).
+                ThenInclude(x => x.Groups.Where(y => y.Template.IsCheckbox)).
+                ThenInclude(x => x.Answers.Where(y => y.FirstAnswer == "NotOk" ||
+                  y.SecondAnswer == "NotOk" ||
+                  y.ThirdAnswer == "NotOk")).ThenInclude(x => x.Template).ThenInclude(x => x.MissMatchWords).FirstOrDefaultAsync();
+            return certificate;
         }
     }
 }

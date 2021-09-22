@@ -43,6 +43,7 @@ namespace Asi.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -12,7 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\navigation.json" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
@@ -21,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Data\navigation.json" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Medium.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Regular.ttf" />
@@ -51,6 +49,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Asi.Application\Asi.Application.csproj" />
     <ProjectReference Include="..\Asi.Client\Asi.Client.csproj" />
+    <ProjectReference Include="..\Asi.Mobile.LocalData\Asi.Mobile.LocalData.csproj" />
     <ProjectReference Include="..\Asi.Model\Asi.Model.csproj" />
   </ItemGroup>
 
@@ -137,9 +136,6 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ControlGroupsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\DailyCaloriesReportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ItemFormsView.xaml">

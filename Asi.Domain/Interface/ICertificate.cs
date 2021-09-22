@@ -9,7 +9,8 @@ namespace Asi.Domain.Interface
 
     {
         Task<int> UnCompleteCertificateCount();
-        Task<Certificate> GetNextControl(int certificateId);
+        Task<Certificate> GetNextControlByCompanyName(string companyName);
+        Task<Certificate> GetNextControlById(int certificateId);
         Task AddCertificateQeue(Certificate certificate);
         Task SubmitCertificate(Certificate certificate, int qeueId);
         PagedList<Certificate> GetUnSubmittedCertificates(PaginationFilter pagination);

@@ -102,6 +102,7 @@ namespace AsiWindows.View.Edit
 
         private void LoadCertificateData(CertificateModel certificate)
         {
+            this.label3.Text = certificate.RequestTime.ToLongDateString();
             this.ComboboxDepartment.Text = certificate.ServiceType;
             this.TextboxItem.Text = certificate.Item;
             this.ComboboxCertificateType.Text = certificate.CertificateType;

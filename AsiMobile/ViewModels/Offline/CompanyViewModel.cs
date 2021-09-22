@@ -1,8 +1,8 @@
 ﻿using Asi.Application.Interface;
+using Asi.Mobile.LocalData.Interface;
 using Asi.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AsiMobile.ViewModels.Offline
@@ -13,21 +13,21 @@ namespace AsiMobile.ViewModels.Offline
         public string Fullname { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        private IApplicationBusinessUnit _unit;
+        ILocalData _localData;
         public Command AddCompany { get; private set; }
 
         public CompanyViewModel()
         {
             AddCompany = new Command(AddCompanyMethod);
-            _unit = App.ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
+            _localData = App.ServiceProvider.GetService(typeof(ILocalData)) as ILocalData;
             Companies = new ObservableCollection<CompanyModel>();
-            //List<CompanyModel> companyModels = Task.Run(async () => await _unit.co.GetAll(0)).Result;
-           // companyModels.ForEach(x => Companies.Add(x));
+            List<CompanyModel> companyModels = _localData.Companies.GetAll();
+            companyModels.ForEach(x => Companies.Add(x));
            
             
         }
 
-        private async void AddCompanyMethod(object obj)
+        private  void AddCompanyMethod(object obj)
         {
             CompanyModel companyModel = new CompanyModel
             {
@@ -35,7 +35,7 @@ namespace AsiMobile.ViewModels.Offline
                 Address = this.Address,
                 PhoneNumber = this.Address
             };
-          //  await _unit.Companies.Create(companyModel);
+            _localData.Companies.Create(companyModel);
         }
     }
 }

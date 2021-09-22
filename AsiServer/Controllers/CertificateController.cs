@@ -1,6 +1,7 @@
 ﻿using Asi.Server.Mediator.Certificates.GetCertificateLastControlTime;
 using Asi.Server.Mediator.Certificates.GetLastId;
-using Asi.Server.Mediator.Certificates.GetNextControl;
+using Asi.Server.Mediator.Certificates.GetNextControlByCompanyName;
+using Asi.Server.Mediator.Certificates.GetNextControlById;
 using Asi.Server.Mediator.Certificates.GetUnSubmittedCertificates;
 using Asi.Server.Mediator.Certificates.RequestCertificate;
 using Asi.Server.Mediator.Certificates.SubmitCertificate;
@@ -51,11 +52,24 @@ namespace Asi.Core.Server.Controllers
             }
         }
         [HttpGet("nextcontrol/{certificateid}")]
-        public async Task<IActionResult> GetNextControl(int certificateid)
+        public async Task<IActionResult> GetNextControlById(int certificateid)
         {
             try
             {
-                return Ok(await _mediator.Send(new  GetNextControlCommand(certificateid)));
+                return Ok(await _mediator.Send(new  GetNextControlByIdCommand(certificateid)));
+            }
+            catch (Exception e)
+            {
+
+                return NotFound(e.Message);
+            }
+        }
+        [HttpGet("nextcontrol/companies/{certificateid}")]
+        public async Task<IActionResult> GetNextControlByCompanyName(string companyName)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetNextControlByCompanyNameCommand(companyName)));
             }
             catch (Exception e)
             {

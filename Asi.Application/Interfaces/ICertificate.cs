@@ -11,7 +11,8 @@ namespace Asi.Application.Interface
         Task<int> LastId();
         Task<int> LastControlRepeat(int certificateId);
         Task SendRequest(RequestCertificateModel controlFormSend);
-        Task<RequestCertificateModel> GetMissmatchForm(int certificateId);
+        Task<RequestCertificateModel> GetMissmatchFormByCompanyName(string companyName);
+        Task<RequestCertificateModel> GetMissmatchFormById(int certificateId);
         Task<PagedList<CertificateModel>> GetUnsubmittedForms(int pageNumber, int pageSize);
         Task SubmitCertificate(CertificateModel certificate);
         Task<PagedList<CertificateModel>> GetAll(int page, int pagesize);

@@ -1,4 +1,5 @@
 ﻿using Asi.Client.V2.Interfaces;
+using Asi.Mobile.LocalData.Interface;
 using Asi.Model;
 using System;
 using System.Collections.Generic;
@@ -7,16 +8,16 @@ using System.Text;
 
 namespace AsiMobile.ViewModels.Offline
 {
-   public class OfflineItemsViewModel
+    public class OfflineItemsViewModel
     {
-        private readonly IV2BusinessUnit _unit;
+        private readonly ILocalData _localData;
 
-        public ObservableCollection<ItemModel> Items{ get; set; }
+        public ObservableCollection<ItemModel> Items { get; set; }
 
         public OfflineItemsViewModel()
         {
-          _unit=  App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
-            List<ItemModel> itemModels = _unit.Items.GetAll(0);
+            _localData = App.ServiceProvider.GetService(typeof(ILocalData)) as ILocalData;
+            List<ItemModel> itemModels = _localData.Items.GetAll();
             itemModels.ForEach(x => Items.Add(x));
         }
     }

@@ -84,11 +84,11 @@ namespace AsiWindows.View.Edit
             this.ButtonCancel = new DevExpress.XtraEditors.SimpleButton();
             this.ButtonSubmit = new DevExpress.XtraEditors.SimpleButton();
             this.LabelCertificateNumber = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.LabelFileNumber = new System.Windows.Forms.Label();
             this.TextboxCompanyAddress = new System.Windows.Forms.RichTextBox();
             this.TextboxItem = new DevExpress.XtraEditors.TextEdit();
             this.TextboxCompanyName = new DevExpress.XtraEditors.TextEdit();
-            this.TextboxRequestDate = new DevExpress.XtraEditors.TextEdit();
             this.TextboxHologramNumber = new DevExpress.XtraEditors.TextEdit();
             this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
@@ -152,7 +152,6 @@ namespace AsiWindows.View.Edit
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxItem.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxCompanyName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TextboxRequestDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxHologramNumber.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboboxProvince.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboboxCertificateType.Properties)).BeginInit();
@@ -190,11 +189,11 @@ namespace AsiWindows.View.Edit
             this.xtraTabPage1.Controls.Add(this.ButtonCancel);
             this.xtraTabPage1.Controls.Add(this.ButtonSubmit);
             this.xtraTabPage1.Controls.Add(this.LabelCertificateNumber);
+            this.xtraTabPage1.Controls.Add(this.label3);
             this.xtraTabPage1.Controls.Add(this.LabelFileNumber);
             this.xtraTabPage1.Controls.Add(this.TextboxCompanyAddress);
             this.xtraTabPage1.Controls.Add(this.TextboxItem);
             this.xtraTabPage1.Controls.Add(this.TextboxCompanyName);
-            this.xtraTabPage1.Controls.Add(this.TextboxRequestDate);
             this.xtraTabPage1.Controls.Add(this.TextboxHologramNumber);
             this.xtraTabPage1.Controls.Add(this.labelControl11);
             this.xtraTabPage1.Controls.Add(this.labelControl9);
@@ -606,6 +605,15 @@ namespace AsiWindows.View.Edit
             this.LabelCertificateNumber.TabIndex = 7;
             this.LabelCertificateNumber.Text = "label1";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 19);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "label1";
+            // 
             // LabelFileNumber
             // 
             this.LabelFileNumber.AutoSize = true;
@@ -637,13 +645,6 @@ namespace AsiWindows.View.Edit
             this.TextboxCompanyName.Name = "TextboxCompanyName";
             this.TextboxCompanyName.Size = new System.Drawing.Size(292, 26);
             this.TextboxCompanyName.TabIndex = 5;
-            // 
-            // TextboxRequestDate
-            // 
-            this.TextboxRequestDate.Location = new System.Drawing.Point(10, 72);
-            this.TextboxRequestDate.Name = "TextboxRequestDate";
-            this.TextboxRequestDate.Size = new System.Drawing.Size(236, 26);
-            this.TextboxRequestDate.TabIndex = 5;
             // 
             // TextboxHologramNumber
             // 
@@ -1039,7 +1040,6 @@ namespace AsiWindows.View.Edit
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxItem.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxCompanyName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TextboxRequestDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextboxHologramNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboboxProvince.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboboxCertificateType.Properties)).EndInit();
@@ -1089,7 +1089,6 @@ namespace AsiWindows.View.Edit
         private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
         private DevExpress.XtraEditors.SimpleButton ButtonCancel;
         private DevExpress.XtraEditors.SimpleButton ButtonSubmit;
-        private DevExpress.XtraEditors.TextEdit TextboxRequestDate;
         private System.Windows.Forms.DateTimePicker DatepickerExpireDate;
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private System.Windows.Forms.BindingSource controlFormModelBindingSource;
@@ -1151,5 +1150,6 @@ namespace AsiWindows.View.Edit
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
     }
 }

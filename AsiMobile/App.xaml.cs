@@ -1,5 +1,6 @@
 using Asi.Application.Interface;
 using Asi.Client;
+using Asi.Mobile.LocalData;
 using Asi.Model;
 using AsiMobile.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,35 +23,33 @@ namespace AsiMobile
         public static int DepartmentId { get; set; }
         public static int ServiceTypeId { get; set; }
         public static int CertificateTypeId { get; set; }
-        public static string ImageServerPath { get; } = "https://cdn.syncfusion.com/essential-ui-kit-for-xamarin.forms/common/uikitimages/";
         public static IServiceProvider ServiceProvider { get; set; }
         public static UserModel LoggedUser { get; set; }
         public App()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjM3OEAzMTM5MmUzMTJlMzBVeS82aFZBTTBzSG56NU1iekJscW9VN0s1UGJMcHBMRlFYMGduOUgxaUFvPQ==");
-            var dbPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             ServiceCollection services = new ServiceCollection();
             services.RegisterV2ApiClient();
-          //  services.RegisterSqliteBusiness(dbPath);
-             ServiceProvider = services.BuildServiceProvider();
+            services.RegisterLocalData();
+            ServiceProvider = services.BuildServiceProvider();
             InitializeComponent();
             IApplicationBusinessUnit applicationUnit = ServiceProvider.GetService(typeof(IApplicationBusinessUnit)) as IApplicationBusinessUnit;
-            int d = Task.Run(async () => await applicationUnit.Departments.GetAll()).Result.Count;
+           // int d = Task.Run(async () => await applicationUnit.Departments.GetAll()).Result.Count;
             MainPage = new NavigationPage(new LoginPage());
         }
-        
+
         protected override void OnStart()
         {
         }
 
         protected override void OnSleep()
         {
-            
+
         }
 
         protected override void OnResume()
         {
         }
-         
+
     }
 }

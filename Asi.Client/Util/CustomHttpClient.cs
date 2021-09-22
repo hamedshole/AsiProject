@@ -15,8 +15,8 @@ namespace Asi.Client.Util
         private string _route;
         public CustomHttpClient()
         {
-           // _baseAddress = new Uri("http://2.186.12.95/asiserver/api/");
-            _baseAddress = new Uri("http://192.168.0.104/AsiServer/api/");
+            _baseAddress = new Uri("http://2.186.12.95/asiserver/api/");
+           // _baseAddress = new Uri("http://192.168.0.104/AsiServer/api/");
 
         }
 

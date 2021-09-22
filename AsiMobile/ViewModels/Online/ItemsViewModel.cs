@@ -4,6 +4,7 @@ using Asi.Model;
 using AsiMobile.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AsiMobile.ViewModels.Online
@@ -23,7 +24,7 @@ namespace AsiMobile.ViewModels.Online
             SaveItem = new Command<ItemModel>(SaveItemMethod);
             SendCertificate = new Command<ItemModel>(SendCertificateMethod);
             _unit = App.ServiceProvider.GetService(typeof(IV2BusinessUnit)) as IV2BusinessUnit;
-            List<ItemModel> items = _unit.Items.GetAll(0);
+            List<ItemModel> items =Task.Run(async()=>await _unit.Items.GetServieTypeItems(serviceTypeId)).Result;
             items.ForEach(x => Items.Add(x));
         }
 

@@ -55,7 +55,7 @@ namespace Asi.Application.Util
 
         public MapperProfile()
         {
-
+            CreateMap<Company, Asi.Domain.ValueObjects.Company>().ReverseMap();
             CreateMap<ControlLink, Link>().ForMember(d=>d.Signiture,opt=>opt.MapFrom(m=>StaticMethods.SaveImage(m.Signiture,StaticMethods.SavedImageFormat.PNG,StaticMethods.ImageDirectory.Signitures)));
             CreateMap<Link, ControlLink>().ForMember(d => d.Signiture, opt => opt.MapFrom(m => StaticMethods.LoadImage(m.Signiture)));
 
@@ -202,6 +202,7 @@ namespace Asi.Application.Util
                 .ForMember(d => d.Image, opt => opt.MapFrom(m => StaticMethods.SaveImage(m.Image, StaticMethods.SavedImageFormat.JPG, StaticMethods.ImageDirectory.Images)))
                 .ForMember(d => d.Controls, opt => opt.MapFrom(m => m.FormDatas))
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(m => 0))
+                .ForMember(dto=>dto.RequestDate,opt=>opt.MapFrom(m=>m.ControlDate))
                 .ForMember(dto => dto.ProvinceIdId, opt => opt.MapFrom(model => model.ProvinenceId));
 
 
@@ -246,6 +247,7 @@ namespace Asi.Application.Util
 
 
             CreateMap<CertificateModel, Certificate>().
+                ForMember(d=>d.RequestDate,opt=>opt.MapFrom(m=>m.RequestTime)).
                 ForMember(m => m.Department, opt => opt.Ignore()).
                 ForMember(m => m.ServiceType, opt => opt.Ignore()).
                 ForMember(m => m.CertificateType, opt => opt.Ignore()).
@@ -285,6 +287,7 @@ namespace Asi.Application.Util
             #region certificate to model
 
             CreateMap<Certificate, CertificateModel>()
+                .ForMember(m=>m.RequestTime,opt=>opt.MapFrom(d=>d.RequestDate))
                 .ForMember(m => m.CertificateType, opt => opt.MapFrom(d => d.CertificateType.Title))
                 .ForMember(m => m.Controls, opt => opt.Ignore())
                 .ForMember(m => m.Department, opt => opt.MapFrom(d => d.Department.Title))
@@ -297,6 +300,7 @@ namespace Asi.Application.Util
             #region certificate control to model
 
             CreateMap<CertificateControl, CertificateControlModel>().
+                ForMember(m=>m.Time,opt=>opt.MapFrom(d=>d.ControlDate)).
                 ForMember(m => m.AgancyName, opt => opt.MapFrom(d => d.Agancy.Fullname)).
                  ForMember(m => m.AgancyName, opt => opt.AllowNull()).
                 ForMember(m => m.BranchName, opt => opt.MapFrom(d => d.BranchPerson.Fullname)).

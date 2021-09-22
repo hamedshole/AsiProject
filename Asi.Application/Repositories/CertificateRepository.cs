@@ -34,9 +34,9 @@ namespace Asi.Application.Repositories
             return _mapper.Map<PagedList<CertificateModel>>(certificates);
         }
 
-        async Task<RequestCertificateModel> ICertificate.GetMissmatchForm(int certificateId)
+        async Task<RequestCertificateModel> ICertificate.GetMissmatchFormById(int certificateId)
         {
-            Certificate certificate = await _dbBusinessUnit.Certificates.GetNextControl(certificateId);
+            Certificate certificate = await _dbBusinessUnit.Certificates.GetNextControlById(certificateId);
             RequestCertificateModel controlFormSend = _mapper.Map<RequestCertificateModel>(certificate);
             controlFormSend.FormDatas = new List<RequestCertificateControlModel>();
             // controlFormSend.FormDatas.Add(_mapper.Map<CertificateControlModel>(certificate.RefferenceForm))
@@ -121,6 +121,18 @@ namespace Asi.Application.Repositories
         public async Task<int> UnCompleteCertificatesCount()
         {
             return await _dbBusinessUnit.Certificates.UnCompleteCertificateCount();
+        }
+
+        public async Task<RequestCertificateModel> GetMissmatchFormByCompanyName(string companyName)
+        {
+            Certificate certificate = await _dbBusinessUnit.Certificates.GetNextControlByCompanyName(companyName);
+            RequestCertificateModel controlFormSend = _mapper.Map<RequestCertificateModel>(certificate);
+            controlFormSend.FormDatas = new List<RequestCertificateControlModel>();
+            // controlFormSend.FormDatas.Add(_mapper.Map<CertificateControlModel>(certificate.RefferenceForm))
+            int repeat = await _dbBusinessUnit.Certificates.LastControlRepeat(certificate.Id);
+            controlFormSend.ControlTime = repeat;
+            controlFormSend.ControlTimeText = StaticMethods.GetControlTime(repeat);
+            return controlFormSend;
         }
     }
 }

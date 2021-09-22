@@ -101,7 +101,7 @@ namespace Asi.Business.Repositories
                 .ThenInclude(x => x.QuestionHeaders)
                 .Include(x => x.Controls)
                 .ThenInclude(x => x.MainController)
-                .FirstOrDefaultAsync();
+                .Where(x=>x.Id==certificateId).FirstOrDefaultAsync();
 
 
                 //  ControlFormReportModel res = _mapper.Map<ControlFormReportModel>(certificate);

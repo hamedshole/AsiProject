@@ -217,6 +217,9 @@
     <EmbeddedResource Include="View\UnSubmittedForms.resx">
       <DependentUpon>UnSubmittedForms.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Asi.Model.CertificateControlModel.datasource" />
     <None Include="Properties\Settings.settings">
